@@ -6,7 +6,7 @@
     "active": 1,
     "order": 1,
     "providers": [
-        "Modules\\Translates\\Providers\\InitServiceProvider"
+        "GeekCms\\Translates\\Providers\\InitServiceProvider"
     ],
     "aliases": [],
     "files": [

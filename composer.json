@@ -21,14 +21,14 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Modules\\Translates\\Providers\\InitServiceProvider"
+                "GeekCms\\Translates\\Providers\\InitServiceProvider"
             ],
             "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Translates\\": ""
+            "GeekCms\\Translates\\": ""
         }
     }
 }
