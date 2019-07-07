@@ -3,8 +3,8 @@
 return [
     'FacadeName' => [
         'alias' => 'Translate',
-        'facadePath' => 'Modules\Translates\Facades\Facade',
-        'mainRepoPath' => 'Modules\Translates\Repository\ManagerRepository',
+        'facadePath' => 'GeekCms\Translates\Facades\Facade',
+        'mainRepoPath' => 'GeekCms\Translates\Repository\ManagerRepository',
     ],
     'flags_list' => [
         'flag-icon-ad', 'flag-icon-ae', 'flag-icon-af', 'flag-icon-ag', 'flag-icon-ai', 'flag-icon-al', 'flag-icon-am',

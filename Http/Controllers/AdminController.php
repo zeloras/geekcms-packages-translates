@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Translates\Http\Controllers;
+namespace GeekCms\Translates\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Translates\Models\TranslateLanguages;
-use Modules\Translates\Models\TranslateLanguagesElements;
+use GeekCms\Translates\Models\TranslateLanguages;
+use GeekCms\Translates\Models\TranslateLanguagesElements;
 
 class AdminController extends Controller
 {

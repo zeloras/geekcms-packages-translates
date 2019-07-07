@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Translates\Repository;
+namespace GeekCms\Translates\Repository;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
-use Modules\Translates\Models\TranslateLanguages;
+use GeekCms\Translates\Models\TranslateLanguages;
 
 class ManagerRepository
 {

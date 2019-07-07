@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Translates\Facades;
+namespace GeekCms\Translates\Facades;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {

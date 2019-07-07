@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', \Translate::get('translates::admin/sidenav.name'))
+@section('title', \Translate::get('module_translates::admin/sidenav.name'))
 
 @section('content')
 

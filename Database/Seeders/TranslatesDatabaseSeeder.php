@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Translates\Database\Seeders;
+namespace GeekCms\Translates\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Modules\Translates\Models\TranslateLanguages;
-use Modules\Translates\Models\TranslateLanguagesElements;
+use GeekCms\Translates\Models\TranslateLanguages;
+use GeekCms\Translates\Models\TranslateLanguagesElements;
 
 class TranslatesDatabaseSeeder extends Seeder
 {

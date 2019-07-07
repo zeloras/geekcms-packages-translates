@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Translates\Providers;
+namespace GeekCms\Translates\Providers;
 
 use GeekCms\PackagesManager\Support\ServiceProvider as MainServiceProvider;
 

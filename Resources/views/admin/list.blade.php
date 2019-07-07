@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', \Translate::get('translates::admin/sidenav.name'))
+@section('title', \Translate::get('module_translates::admin/sidenav.name'))
 
 @section('content')
 
@@ -15,7 +15,7 @@
             <div class="tbl-cell tbl-cell-title border-bottom">
                 <form class="form-inline">
                     <label class="mr-sm-2" for="languages_select">
-                        {{ \Translate::get('translates::admin/main.language_select') }}:
+                        {{ \Translate::get('module_translates::admin/main.language_select') }}:
                     </label>
 
                     <select class="form-control mb-2 mr-sm-2 mb-sm-0 languages_select_list" id="languages_select">
@@ -43,7 +43,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active show" href="#tabs-2-tab-1" role="tab" data-toggle="tab" aria-selected="true">
                                     <span class="nav-link-in">
-                                        {{ \Translate::get('translates::admin/main.main_translates') }}
+                                        {{ \Translate::get('module_translates::admin/main.main_translates') }}
                                     </span>
                                     </a>
                                 </li>
@@ -53,7 +53,7 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tabs-2-tab-{{$i}}" role="tab" data-toggle="tab" aria-selected="false">
                                             <span class="nav-link-in">
-                                                {{ \Translate::get('translates::admin/main.module') }}: {{ $module->name }}
+                                                {{ \Translate::get('module_translates::admin/main.module') }}: {{ $module->name }}
                                             </span>
                                             </a>
                                         </li>
@@ -105,7 +105,7 @@
                     </div><!--.tab-content-->
 
                     <div class="form-group text-center pt-3">
-                        <button type="submit" class="btn btn-inline btn-success btn-lg">{{\Translate::get('translates::admin/main.action_save')}}</button>
+                        <button type="submit" class="btn btn-inline btn-success btn-lg">{{\Translate::get('module_translates::admin/main.action_save')}}</button>
                     </div>
                 </section>
             </form>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Translates\Models\DB;
+namespace GeekCms\Translates\Models\DB;
 
 use App\Models\MainModel;
 

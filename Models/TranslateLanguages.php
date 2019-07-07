@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Translates\Models;
+namespace GeekCms\Translates\Models;
 
-use Modules\Translates\Models\DB\TranslateLanguages as MainLanguages;
+use GeekCms\Translates\Models\DB\TranslateLanguages as MainLanguages;
 
 class TranslateLanguages extends MainLanguages
 {
