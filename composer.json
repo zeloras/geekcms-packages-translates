@@ -30,5 +30,7 @@
         "psr-4": {
             "GeekCms\\Translates\\": ""
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
