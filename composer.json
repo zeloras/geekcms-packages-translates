@@ -3,7 +3,7 @@
     "description": "",
     "require": {
         "php": "^7.1.3",
-        "zeloras/geekcms-packages-manager": "dev-master"
+        "geekcms/packagesmanager": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0",
