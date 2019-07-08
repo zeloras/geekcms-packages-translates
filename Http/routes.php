@@ -2,7 +2,7 @@
 
 Route::group(['middleware' => ['web', 'permission:' . \Gcms::MAIN_ADMIN_PERMISSION], 'prefix' => getAdminPrefix('translates')], function () {
     Route::group(['middleware' => ['permission:modules_translates_admin_list']], function () {
-        Route::get('/', 'GeekCms\Translates\Http\Controllers\AdminController@index')
+        Route::get(DIRECTORY_SEPARATOR, 'GeekCms\Translates\Http\Controllers\AdminController@index')
             ->name('admin.translates')
         ;
 

@@ -145,14 +145,14 @@ class ManagerRepository
 
             foreach ($files as $file) {
                 $pathinfo = pathinfo($file);
-                $short = preg_replace('/'.preg_quote($path, '/').'/sui', '', $pathinfo['dirname']);
-                $path_split = array_filter(explode('/', $short));
+                $short = preg_replace('/'.preg_quote($path, DIRECTORY_SEPARATOR).'/sui', '', $pathinfo['dirname']);
+                $path_split = array_filter(explode(DIRECTORY_SEPARATOR, $short));
                 $path_split = array_values($path_split);
                 krsort($path_split);
                 $lang_code = $path_split[0];
                 unset($path_split[0]);
-                $path_split = implode('/', $path_split);
-                $path_split = (!empty($path_split)) ? $path_split.'/' : $path_split;
+                $path_split = implode(DIRECTORY_SEPARATOR, $path_split);
+                $path_split = (!empty($path_split)) ? $path_split . DIRECTORY_SEPARATOR : $path_split;
                 $translates = require_once $file;
 
                 if (\is_array($translates)) {
@@ -180,7 +180,7 @@ class ManagerRepository
 
         foreach ($modules as $module) {
             $load_langs = module_path($module->name).'/Resources/lang';
-            $loaded = $this->setTranslatesByPath($load_langs, 'module_'.strtolower($module->name));
+            $loaded = $this->setTranslatesByPath($load_langs, \Gcms::MODULES_PREFIX.strtolower($module->name));
             if (\count($loaded)) {
                 $languages_data = array_merge_recursive($languages_data, $loaded);
             }
@@ -263,7 +263,7 @@ class ManagerRepository
             }
         }
 
-        return Cache::remember($this->cacheTranslatesKey, config('cache.settings.minutes', 10), function () {
+        return Cache::remember($this->cacheTranslatesKey, config(\Gcms::MAIN_CACHE_TIMEOUT_KEY, 10), function () {
             try {
                 return TranslateLanguages::with('items')->get();
             } catch (\Illuminate\Database\QueryException $e) {
@@ -293,7 +293,7 @@ class ManagerRepository
             }
         }
 
-        return Cache::remember($this->cacheCheckTranslatesKey, config('cache.settings.minutes', 10), function () {
+        return Cache::remember($this->cacheCheckTranslatesKey, config(\Gcms::MAIN_CACHE_TIMEOUT_KEY, 10), function () {
             try {
                 return Schema::hasTable(TranslateLanguages::tablename());
             } catch (\Illuminate\Database\QueryException $e) {
