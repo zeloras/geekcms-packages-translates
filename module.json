@@ -1,43 +1,43 @@
 {
-    "name": "Translates",
-    "alias": "translates",
-    "description": "",
-    "keywords": [],
-    "active": 1,
-    "order": 1,
-    "providers": [
-        "GeekCms\\Translates\\Providers\\InitServiceProvider"
-    ],
-    "aliases": [],
-    "files": [
-        "loader.php"
-    ],
-    "requires": [
-        "GeekCms\\PackagesManager"
-    ],
-    "access_permissions": [
-        {
-            "name": "modules_translates_admin_list",
-            "i18n_name": "access.modules_translates_admin_list"
-        },
-        {
-            "name": "modules_translates_admin_edit",
-            "i18n_name": "access.modules_translates_admin_edit"
-        },
-        {
-            "name": "modules_translates_admin_create",
-            "i18n_name": "access.modules_translates_admin_create"
-        },
-        {
-            "name": "modules_translates_admin_delete",
-            "i18n_name": "access.modules_translates_admin_delete"
-        }
-    ],
-    "menu_sidebar": [
-        {
-            "i18n_name": "admin\/sidenav.name",
-            "route": "translates",
-            "icon": "font-icon font-icon-earth-bordered"
-        }
-    ]
+  "name": "Translates",
+  "alias": "translates",
+  "description": "",
+  "keywords": [],
+  "active": 1,
+  "order": 1,
+  "providers": [
+    "GeekCms\\Translates\\Providers\\InitServiceProvider"
+  ],
+  "aliases": [],
+  "files": [
+    "loader.php"
+  ],
+  "requires": [
+    "GeekCms\\PackagesManager"
+  ],
+  "access_permissions": [
+    {
+      "name": "modules_translates_admin_list",
+      "i18n_name": "access.modules_translates_admin_list"
+    },
+    {
+      "name": "modules_translates_admin_edit",
+      "i18n_name": "access.modules_translates_admin_edit"
+    },
+    {
+      "name": "modules_translates_admin_create",
+      "i18n_name": "access.modules_translates_admin_create"
+    },
+    {
+      "name": "modules_translates_admin_delete",
+      "i18n_name": "access.modules_translates_admin_delete"
+    }
+  ],
+  "menu_sidebar": [
+    {
+      "i18n_name": "admin\/sidenav.name",
+      "route": "translates",
+      "icon": "font-icon font-icon-earth-bordered"
+    }
+  ]
 }

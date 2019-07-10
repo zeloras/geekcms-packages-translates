@@ -2,9 +2,9 @@
 
 namespace GeekCms\Translates\Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use GeekCms\Translates\Models\TranslateLanguages;
 use GeekCms\Translates\Models\TranslateLanguagesElements;
+use Illuminate\Database\Seeder;
 
 class TranslatesDatabaseSeeder extends Seeder
 {
@@ -12,8 +12,7 @@ class TranslatesDatabaseSeeder extends Seeder
     {
         TranslateLanguages::truncate();
         TranslateLanguagesElements::truncate();
-
-        $langRu = TranslateLanguages::create([
+        TranslateLanguages::create([
             'key' => 'ru',
             'name' => 'Russian',
             'native' => 'Русский',
@@ -23,7 +22,7 @@ class TranslatesDatabaseSeeder extends Seeder
             'enabled' => true,
         ]);
 
-        $langEn = TranslateLanguages::create([
+        TranslateLanguages::create([
             'key' => 'en',
             'name' => 'English',
             'native' => 'English',

@@ -3,6 +3,7 @@
 namespace GeekCms\Translates\Models\DB;
 
 use App\Models\MainModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TranslateLanguages extends MainModel
 {
@@ -15,7 +16,7 @@ class TranslateLanguages extends MainModel
     /**
      * Get translated items for current language.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function items()
     {

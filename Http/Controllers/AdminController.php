@@ -2,17 +2,25 @@
 
 namespace GeekCms\Translates\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Config;
+use Exception;
 use GeekCms\Translates\Models\TranslateLanguages;
 use GeekCms\Translates\Models\TranslateLanguagesElements;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\View\View;
+use Module;
+use Translate;
+use function count;
 
 class AdminController extends Controller
 {
     /**
      * Page with main languages.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -27,16 +35,18 @@ class AdminController extends Controller
      * Page with list translates for selected language.
      *
      * @param TranslateLanguages $lang
-     * @param Request            $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
+     * @throws Exception
+     * @throws Exception
      */
     public function list(TranslateLanguages $lang, Request $request)
     {
         $languages = TranslateLanguages::all();
         $current_language = $lang;
-        $local_modules = \Module::all();
-        $translates_factory = \Translate::getInstance();
+        $local_modules = Module::all();
+        $translates_factory = Translate::getInstance();
         $translates = $translates_factory->getTranslates();
         $translates_keys = $translates_factory->getTranslatesKeys();
 
@@ -53,9 +63,9 @@ class AdminController extends Controller
      * Page for edit language.
      *
      * @param TranslateLanguages $lang
-     * @param Request            $request
+     * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(TranslateLanguages $lang, Request $request)
     {
@@ -63,7 +73,7 @@ class AdminController extends Controller
         $route = route('admin.translates.edit', ['lang' => $lang->id ?? null]);
 
         if (class_exists('Config')) {
-            $flags = \Config::get('module_translates.flags_list', []);
+            $flags = Config::get('module_translates.flags_list', []);
         } else {
             $flags = config('module_translates.flags_list', []);
         }
@@ -88,7 +98,7 @@ class AdminController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function create(Request $request)
     {
@@ -97,7 +107,7 @@ class AdminController extends Controller
         $posts = $request->all();
 
         if (class_exists('Config')) {
-            $flags = \Config::get('module_translates.flags_list', []);
+            $flags = Config::get('module_translates.flags_list', []);
         } else {
             $flags = config('module_translates.flags_list', []);
         }
@@ -120,11 +130,11 @@ class AdminController extends Controller
      * Remove selected language.
      *
      * @param TranslateLanguages $lang
-     * @param Request            $request
+     * @param Request $request
      *
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function delete(TranslateLanguages $lang, Request $request)
     {
@@ -139,7 +149,7 @@ class AdminController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAll(Request $request)
     {
@@ -147,7 +157,7 @@ class AdminController extends Controller
         $get_translates = explode(',', $get_translates);
         $get_translates = array_filter($get_translates);
 
-        if (\count($get_translates)) {
+        if (count($get_translates)) {
             $find_translate = TranslateLanguages::whereIn('id', $get_translates);
             if ($find_translate->count()) {
                 foreach ($find_translate->get() as $ftranslate) {
@@ -164,9 +174,9 @@ class AdminController extends Controller
      * Save language translates.
      *
      * @param TranslateLanguages $lang
-     * @param Request            $request
+     * @param Request $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function save(TranslateLanguages $lang, Request $request)
     {
@@ -179,7 +189,7 @@ class AdminController extends Controller
                 $update_list[] = new TranslateLanguagesElements(['lang_id' => $lang->id, 'key' => $tkey, 'translate' => $val]);
             }
 
-            if (\count($update_list)) {
+            if (count($update_list)) {
                 $items_list->delete();
                 $items_list->saveMany($update_list);
             }
