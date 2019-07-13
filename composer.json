@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "GeekCms\\Translates\\": ""
+      "GeekCms\\Translates\\": "src/"
     }
   },
   "minimum-stability": "dev",

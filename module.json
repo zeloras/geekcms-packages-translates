@@ -10,7 +10,7 @@
   ],
   "aliases": [],
   "files": [
-    "loader.php"
+    "src/loader.php"
   ],
   "requires": [
     "GeekCms\\PackagesManager"
