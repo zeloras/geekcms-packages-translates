@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
-use Module;
+use PackageSystem;
 use function count;
 use function is_array;
 
@@ -168,7 +168,7 @@ class ManagerRepository
      */
     protected function getTranslatesCollect()
     {
-        $modules = Module::all();
+        $modules = PackageSystem::all();
         $current_lang = App::getLocale();
         $load_langs = resource_path('lang');
         $languages_data = $this->setTranslatesByPath($load_langs);
