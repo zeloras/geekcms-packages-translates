@@ -4,6 +4,7 @@ namespace GeekCms\Translates\Http\Controllers;
 
 use Config;
 use Exception;
+use GeekCms\PackagesManager\Facades\PackageSystem;
 use GeekCms\Translates\Models\TranslateLanguages;
 use GeekCms\Translates\Models\TranslateLanguagesElements;
 use Illuminate\Contracts\View\Factory;
@@ -45,7 +46,7 @@ class AdminController extends Controller
     {
         $languages = TranslateLanguages::all();
         $current_language = $lang;
-        $local_modules = Module::all();
+        $local_modules = PackageSystem::all();
         $translates_factory = Translate::getInstance();
         $translates = $translates_factory->getTranslates();
         $translates_keys = $translates_factory->getTranslatesKeys();

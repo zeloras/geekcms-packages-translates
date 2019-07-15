@@ -174,7 +174,7 @@ class ManagerRepository
         $languages_data = $this->setTranslatesByPath($load_langs);
 
         foreach ($modules as $module) {
-            $load_langs = module_path($module->name) . '/Resources/lang';
+            $load_langs = module_path($module->name) . '/src/Resources/lang';
             $loaded = $this->setTranslatesByPath($load_langs, config('modules.module_prefix') . strtolower($module->name));
             if (count($loaded)) {
                 $languages_data = array_merge_recursive($languages_data, $loaded);
