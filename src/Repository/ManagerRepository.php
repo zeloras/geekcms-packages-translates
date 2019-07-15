@@ -175,7 +175,7 @@ class ManagerRepository
 
         foreach ($modules as $module) {
             $load_langs = module_path($module->name) . '/Resources/lang';
-            $loaded = $this->setTranslatesByPath($load_langs, Gcms::MODULES_PREFIX . strtolower($module->name));
+            $loaded = $this->setTranslatesByPath($load_langs, config('modules.module_prefix') . strtolower($module->name));
             if (count($loaded)) {
                 $languages_data = array_merge_recursive($languages_data, $loaded);
             }

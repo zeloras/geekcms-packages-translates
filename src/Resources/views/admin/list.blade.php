@@ -49,7 +49,7 @@
                                         </a>
                                     </li>
                                     @foreach ($modules as $module)
-                                        @php ($module_short = Gcms::MODULES_PREFIX.strtolower($module->name))
+                                        @php ($module_short = config('modules.module_prefix').strtolower($module->name))
                                         @if (isset($translates_keys->get($current_language->key)[$module_short]))
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#tabs-2-tab-{{$i}}" role="tab"
@@ -90,7 +90,7 @@
                             @foreach ($modules as $module)
                                 <div role="tabpanel" class="tab-pane fade" id="tabs-2-tab-{{$i}}">
                                     <div class="row">
-                                        @php ($module_short = Gcms::MODULES_PREFIX.strtolower($module->name))
+                                        @php ($module_short = config('modules.module_prefix').strtolower($module->name))
                                         @if (isset($translates_keys->get($current_language->key)[$module_short]))
                                             @foreach ($translates_keys->get($current_language->key)[$module_short] as $main_key => $main_value)
                                                 @foreach ($main_value as $mkey => $mval)
