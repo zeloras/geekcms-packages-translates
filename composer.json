@@ -26,9 +26,7 @@
   ],
   "extra": {
     "laravel": {
-      "providers": [
-        "GeekCms\\Translates\\Providers\\InitServiceProvider"
-      ],
+      "providers": [],
       "aliases": {}
     }
   },
