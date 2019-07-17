@@ -82,7 +82,7 @@ class AdminController extends Controller
         if ($request->isMethod('post')) {
             if ($lang->fill($posts) && !$lang->validate($posts)->fails()) {
                 $lang->save();
-
+                \Translate::clearCache();
                 return redirect()->route('admin.translates');
             }
         }
@@ -116,6 +116,7 @@ class AdminController extends Controller
         if ($request->isMethod('post')) {
             if ($lang_model->fill($posts) && !$lang_model->validate($posts)->fails()) {
                 $lang_model->save();
+                \Translate::clearCache();
 
                 return redirect()->route('admin.translates');
             }
@@ -141,6 +142,7 @@ class AdminController extends Controller
     {
         $lang->delete();
         $lang->items()->delete();
+        \Translate::clearCache();
 
         return redirect()->route('admin.translates');
     }
@@ -165,6 +167,7 @@ class AdminController extends Controller
                     $ftranslate->items()->delete();
                 }
                 $find_translate->delete();
+                \Translate::clearCache();
             }
         }
 
@@ -193,6 +196,7 @@ class AdminController extends Controller
             if (count($update_list)) {
                 $items_list->delete();
                 $items_list->saveMany($update_list);
+                \Translate::clearCache();
             }
         }
 
