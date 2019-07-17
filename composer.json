@@ -1,9 +1,15 @@
 {
   "name": "geekcms/translates",
   "description": "",
+  "keywords": [
+    "geekcms",
+    "geekcms-module",
+    "laravel"
+  ],
+  "license": "MIT",
   "require": {
     "php": "^7.1.3",
-    "geekcms/packagesmanager": "dev-master"
+    "geekcms/packagesmanager": "@dev"
   },
   "require-dev": {
     "phpunit/phpunit": "~7.0",
@@ -20,9 +26,7 @@
   ],
   "extra": {
     "laravel": {
-      "providers": [
-        "GeekCms\\Translates\\Providers\\InitServiceProvider"
-      ],
+      "providers": [],
       "aliases": {}
     }
   },

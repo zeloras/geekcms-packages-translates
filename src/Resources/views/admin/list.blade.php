@@ -8,7 +8,11 @@
         var langIndexUrl = '{{ route('admin.translates.list', ['page' => null]) }}';
     </script>
 
-    @php($i = 2)
+    @php
+        $i = 2;
+        $translates_get = $translates_keys->get($current_language->key) ?? [];
+        $translates_get_keys = array_keys($translates_get);
+    @endphp
     <section class="box-typical container pb-3">
         <header class="box-typical-header">
             <div class="tbl-row">
@@ -49,8 +53,13 @@
                                         </a>
                                     </li>
                                     @foreach ($modules as $module)
-                                        @php ($module_short = config('modules.module_prefix').strtolower($module->name))
-                                        @if (isset($translates_keys->get($current_language->key)[$module_short]))
+                                        <?php
+                                            // todo: fix fix ifx
+                                            $module_short = config('modules.module_prefix').strtolower($module->name);
+                                            $result_search = preg_grep('/^'.$module_short.'::/imu', $translates_get_keys);
+                                        ?>
+
+                                        @if (count($result_search))
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#tabs-2-tab-{{$i}}" role="tab"
                                                    data-toggle="tab" aria-selected="false">
@@ -69,20 +78,20 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade in active show" id="tabs-2-tab-1">
                                 <div class="row">
-                                    @foreach ($translates_keys->get($current_language->key)['main'] as $main_key => $main_value)
-                                        @foreach ($main_value as $mkey => $mval)
-                                            @php ($input_key = $main_key . '.' . $mkey)
-                                            @php ($input_value = $translates[$current_language->key][$input_key])
-                                            @php ($input_value = (is_array($input_value)) ? implode(', ', $input_value) : $input_value)
-                                            <div class="form-group col-6">
-                                                <label for="{{$input_key}}" class="module-languages-label"
-                                                       data-toggle="tooltip" data-placement="left"
-                                                       data-original-title="{{ $input_key }}">{{$input_key}}:</label>
-                                                <input class="form-control" id="{{$input_key}}"
-                                                       name="translates[{{$input_key}}]"
-                                                       value="{{ $input_value ?? old('name') }}">
-                                            </div>
-                                        @endforeach
+                                    <?php
+                                    $result_search = preg_grep('/^[^:]+::/imu', $translates_get_keys, PREG_GREP_INVERT);
+                                    ?>
+                                    @foreach ($result_search as $input_key)
+                                        @php ($input_value = $translates_get[$input_key])
+                                        @php ($input_value = (is_array($input_value)) ? implode(', ', $input_value) : $input_value)
+                                        <div class="form-group col-6">
+                                            <label for="{{$input_key}}" class="module-languages-label"
+                                                   data-toggle="tooltip" data-placement="left"
+                                                   data-original-title="{{ $input_key }}">{{$input_key}}:</label>
+                                            <input class="form-control" id="{{$input_key}}"
+                                                   name="translates[{{$input_key}}]"
+                                                   value="{{ $input_value ?? old('name') }}">
+                                        </div>
                                     @endforeach
                                 </div>
                             </div><!--.tab-pane-->
@@ -90,25 +99,23 @@
                             @foreach ($modules as $module)
                                 <div role="tabpanel" class="tab-pane fade" id="tabs-2-tab-{{$i}}">
                                     <div class="row">
-                                        @php ($module_short = config('modules.module_prefix').strtolower($module->name))
-                                        @if (isset($translates_keys->get($current_language->key)[$module_short]))
-                                            @foreach ($translates_keys->get($current_language->key)[$module_short] as $main_key => $main_value)
-                                                @foreach ($main_value as $mkey => $mval)
-                                                    @php ($input_key = $module_short . '::' . $main_key . '.' . $mkey)
-                                                    @php ($input_value = $translates[$current_language->key][$input_key])
-                                                    @php ($input_value = (is_array($input_value)) ? implode(', ', $input_value) : $input_value)
-                                                    <div class="form-group col-6">
-                                                        <label for="{{$input_key}}" class="module-languages-label"
-                                                               data-toggle="tooltip" data-placement="left"
-                                                               data-original-title="{{ $input_key }}">{{$input_key}}
-                                                            :</label>
-                                                        <input class="form-control" id="{{$input_key}}"
-                                                               name="translates[{{$input_key}}]"
-                                                               value="{{ $input_value ?? old('name') }}">
-                                                    </div>
-                                                @endforeach
-                                            @endforeach
-                                        @endif
+                                        <?php
+                                        $module_short = config('modules.module_prefix').strtolower($module->name);
+                                        $result_search = preg_grep('/^'.$module_short.'::/imu', $translates_get_keys);
+                                        ?>
+                                        @foreach ($result_search as $input_key)
+                                            @php ($input_value = $translates_get[$input_key])
+                                            @php ($input_value = (is_array($input_value)) ? implode(', ', $input_value) : $input_value)
+                                            <div class="form-group col-6">
+                                                <label for="{{$input_key}}" class="module-languages-label"
+                                                       data-toggle="tooltip" data-placement="left"
+                                                       data-original-title="{{ $input_key }}">{{$input_key}}
+                                                    :</label>
+                                                <input class="form-control" id="{{$input_key}}"
+                                                       name="translates[{{$input_key}}]"
+                                                       value="{{ $input_value ?? old('name') }}">
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 @php($i++)

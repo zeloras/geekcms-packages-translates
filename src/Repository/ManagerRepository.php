@@ -41,6 +41,7 @@ class ManagerRepository
      */
     private $cacheTranslatesKey = 'translates.manager.cached';
     private $cacheCheckTranslatesKey = 'translates.check.cached';
+    private $cacheTranslatesFilteredKey = 'translates.check.filtered.cached';
 
     /**
      * Instance.
@@ -64,7 +65,7 @@ class ManagerRepository
      */
     public function init()
     {
-        $this->storage = $this->getTranslates(true);
+        $this->storage = $this->getTranslates();
     }
 
     /**
@@ -106,27 +107,29 @@ class ManagerRepository
         }
 
         $languages = $this->getTranslatesCachedQuery();
-        foreach ($languages as $lang) {
-            foreach ($lang->items as $translate) {
-                $prepared_data[$lang->key][$translate->key] = $translate->translate;
-            }
-        }
+        $self = $this;
 
-        foreach ($this->storage_keys->all() as $lang_key => $langs) {
-            foreach ($langs as $translate_key => $translate_val) {
-                foreach ($translate_val as $main_key => $main_val) {
-                    foreach ($main_val as $tr_key => $tr_val) {
-                        $folders = $main_key . '.' . $tr_key;
-                        $main_key_mod = ('main' !== $translate_key) ? $translate_key . '::' . $folders : $folders;
-                        if (!isset($prepared_data[$lang_key], $prepared_data[$lang_key][$main_key_mod])) {
-                            $prepared_data[$lang_key][$main_key_mod] = $tr_val;
+        return Cache::remember($this->cacheTranslatesFilteredKey, config(Gcms::MAIN_CACHE_TIMEOUT_KEY, 10), function () use ($languages, $self) {
+            $prepared_data = [];
+            try {
+                foreach ($languages as $lang) {
+                    foreach ($lang->items as $translate) {
+                        $prepared_data[$lang->key][$translate->key] = $translate->translate;
+                    }
+                }
+
+                foreach ($self->storage_keys->all() as $lang_key => $lang) {
+                    foreach ($lang as $code => $value) {
+                        if (!isset($prepared_data[$lang_key][$code])) {
+                            $prepared_data[$lang_key][$code] = $value;
                         }
                     }
                 }
+            } catch (\Exception $e) {
             }
-        }
 
-        return $prepared_data;
+            return $prepared_data;
+        });
     }
 
     /**
@@ -205,7 +208,7 @@ class ManagerRepository
     public function setTranslatesByPath($path, $prefix = null)
     {
         $languages_data = [];
-        $prefix = (empty($prefix)) ? 'main' : $prefix;
+        $prefix = (empty($prefix)) ? '' : $prefix.'::';
         $filesystem = new Filesystem();
 
         if ($filesystem->exists($path)) {
@@ -224,7 +227,10 @@ class ManagerRepository
                 $translates = require_once $file;
 
                 if (is_array($translates)) {
-                    $languages_data[$lang_code][$prefix][$path_split . $pathinfo['filename']] = Arr::dot($translates);
+                    $lists = Arr::dot($translates);
+                    foreach ($lists as $key => $value) {
+                        $languages_data[$lang_code][$prefix . $path_split . $pathinfo['filename'] . '.' . $key] = $value;
+                    }
                 }
             }
         }
@@ -314,5 +320,12 @@ class ManagerRepository
         $lang = (empty($lang) || !isset($prepared[$lang])) ? $current_lang : $lang;
 
         return (!isset($prepared[$lang][$key])) ? trans($key, $replace, $lang) : $prepared[$lang][$key];
+    }
+
+    public function clearCache()
+    {
+        Cache::forget($this->cacheTranslatesKey);
+        Cache::forget($this->cacheTranslatesFilteredKey);
+        Cache::forget($this->cacheCheckTranslatesKey);
     }
 }
